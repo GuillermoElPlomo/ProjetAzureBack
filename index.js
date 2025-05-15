@@ -6,7 +6,20 @@ const cors = require('cors');
 const todosRoutes = require('./routes/todos');
 
 const app = express();
-app.use(cors());
+const allowedOrigins = [
+  'https://projet-azure.theed.fr',
+  'https://calm-mud-0a2b72810.6.azurestaticapps.net/'
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
 app.use(express.json());
 app.use('/api/todos', todosRoutes);
 
