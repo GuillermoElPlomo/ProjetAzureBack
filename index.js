@@ -4,6 +4,7 @@ const cors = require('cors');
 const todosRoutes = require('./routes/todos');
 
 const app = express();
+
 const allowedOrigins = [
   'https://projet-azure.theed.fr',
   'https://calm-mud-0a2b72810.6.azurestaticapps.net'
@@ -18,6 +19,8 @@ app.use(cors({
     }
   }
 }));
+
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 app.use(express.json());
 app.use('/api/todos', todosRoutes);
